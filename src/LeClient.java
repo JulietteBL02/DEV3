@@ -1,10 +1,10 @@
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 
 // Si necessaire:
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LeClient {
 
@@ -13,6 +13,10 @@ public class LeClient {
 		try {
 			System.out.println("Demarrage du client sur port 1337.");
 			Socket monSocket = new Socket("127.0.0.1", 1337);
+
+			ObjectOutputStream writer = new ObjectOutputStream(
+					monSocket.getOutputStream()
+			);
 
 			/*
 			À FAIRE: 
@@ -23,11 +27,39 @@ public class LeClient {
 			(Devoir 2) Créer les objets necessaires
 			
 			Itérer tous les listes et les sérializer en appellant
-				writer.writeObject(...)
-			*/			
+				writer.(...)
+			*/
+
+
+			try {
+				File myObj = new File("./assets/input.txt");
+				Scanner myReader = new Scanner(myObj);
+				while (myReader.hasNextLine()) {
+					String line = myReader.nextLine();
+					if (!line.isEmpty()) {
+						System.out.println("----------");
+						String[] colonne = line.split(" ");
+						String sens = colonne[0];
+						String listeEnString = colonne[1];
+						System.out.println("Sens du tri: " + sens);
+						System.out.println("Liste originale: " + listeEnString);
+
+						ListeDoublementChainee ldc = new ListeDoublementChainee(sens);
+
+						ldc.ajouterListe(listeEnString);
+
+						writer.writeObject(ldc);
+					}
+				}
+				myReader.close();
+
+			} catch (FileNotFoundException e) {
+				System.out.println("Une erreur est survenue.");
+				e.printStackTrace();
+			}
 
 			writer.close();
-			socket.close();
+			monSocket.close();
 
 		} catch (ConnectException x) {
 			System.out.println("Connexion impossible sur port 1337: pas de serveur.");
