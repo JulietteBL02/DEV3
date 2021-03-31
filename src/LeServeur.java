@@ -80,10 +80,11 @@ public class LeServeur {
 		try{
 		PrintStream out = new PrintStream(new FileOutputStream("lettres.txt",true),true);
 		System.setOut(out);
-		System.out.println("*******arriveSurServeur*****************");
+//		System.out.println("*******arriveSurServeur*****************");
 		d.imprimerListeDuDebut();
 		d.imprimerListeDeLaFin();
-		System.out.println("-------quitteServeur------------");
+		System.out.println("----------");
+//		System.out.println("-------quitteServeur------------");
 		out.close();}
 
 		catch(FileNotFoundException e){

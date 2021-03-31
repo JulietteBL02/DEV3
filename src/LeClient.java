@@ -52,7 +52,7 @@ public class LeClient {
 
 						FileWriter fw = new FileWriter("lettres.txt",true);
 						BufferedWriter bufferedWriter = new BufferedWriter(fw);
-						String s = "\n----------" + "\nSens du tri: " + sens + "\n" + "Liste originale: " + listeEnString ;
+						String s = "----------" + "\nSens du tri: " + sens + "\n" + "Liste originale: " + listeEnString + "\n" ;
 						bufferedWriter.append(s);
 						try{
 //							hyper broche à foin mais .... si je fais pas ça le client va plus vite que le serveur pour imprimer
