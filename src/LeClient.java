@@ -50,7 +50,7 @@ public class LeClient {
 
 
 
-						FileWriter fw = new FileWriter("lettres.txt",true);
+						FileWriter fw = new FileWriter("output.txt",true);
 						BufferedWriter bufferedWriter = new BufferedWriter(fw);
 						String s = "----------" + "\nSens du tri: " + sens + "\n" + "Liste originale: " + listeEnString + "\n" ;
 						bufferedWriter.append(s);

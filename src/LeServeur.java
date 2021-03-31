@@ -21,7 +21,7 @@ public class LeServeur {
 			ObjectInputStream objectReader = new ObjectInputStream(clientStream);
 
 //			initialise le fichier output vide si il est déjà créé
-			FileWriter fw = new FileWriter("lettres.txt");
+			FileWriter fw = new FileWriter("output.txt");
 			BufferedWriter bufferedWriter = new BufferedWriter(fw);
 			String s = "";
 			bufferedWriter.append(s);
@@ -78,7 +78,7 @@ public class LeServeur {
 	au fond du fichier output.txt comme en devoir 2
 	*/
 		try{
-		PrintStream out = new PrintStream(new FileOutputStream("lettres.txt",true),true);
+		PrintStream out = new PrintStream(new FileOutputStream("output.txt",true),true);
 		System.setOut(out);
 //		System.out.println("*******arriveSurServeur*****************");
 		d.imprimerListeDuDebut();
