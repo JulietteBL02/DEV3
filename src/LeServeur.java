@@ -2,6 +2,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LeServeur {
 
@@ -10,7 +11,6 @@ public class LeServeur {
 		try {
 			System.out.println("Demarrage du serveur sur port 1337");
 			ServerSocket server = new ServerSocket(1337, 1);
-
 			Socket client = server.accept();
 			System.out.println(
 					"Un client ayant l'addresse " + client.getInetAddress() +
@@ -19,7 +19,15 @@ public class LeServeur {
 
 			InputStream clientStream = client.getInputStream();
 			ObjectInputStream objectReader = new ObjectInputStream(clientStream);
-			
+
+//			initialise le fichier output vide si il est déjà créé
+			FileWriter fw = new FileWriter("lettres.txt");
+			BufferedWriter bufferedWriter = new BufferedWriter(fw);
+			String s = "";
+			bufferedWriter.append(s);
+			bufferedWriter.close();
+
+
 			/*
 			À FAIRE: 
 			Créer un objet ObjectInputStream objectReader à partir du clientStream
@@ -69,10 +77,30 @@ public class LeServeur {
     (Devoir 2) exporter la liste de l'avant vers l'arrière et inversement
 	au fond du fichier output.txt comme en devoir 2
 	*/
+		try{
+		PrintStream out = new PrintStream(new FileOutputStream("lettres.txt",true),true);
+		System.setOut(out);
+		System.out.println("*******arriveSurServeur*****************");
 		d.imprimerListeDuDebut();
 		d.imprimerListeDeLaFin();
+		System.out.println("-------quitteServeur------------");
+		out.close();}
 
-		System.out.println("\n----------");
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+
+//		try {
+//			FileWriter fw = new FileWriter("lettres.txt", true);
+//			BufferedWriter bufferedWriter = new BufferedWriter(fw);
+//			String s = "DEF\n";
+//			bufferedWriter.append(s);
+//			bufferedWriter.close();
+////		System.out.println("\n----------");
+//		}
+//		catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 
 
