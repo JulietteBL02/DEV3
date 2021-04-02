@@ -20,13 +20,12 @@ public class LeServeur {
 			InputStream clientStream = client.getInputStream();
 			ObjectInputStream objectReader = new ObjectInputStream(clientStream);
 
-//			initialise le fichier output vide si il est déjà créé
+			// Initialise le fichier output vide s'il est déjà créé
 			FileWriter fw = new FileWriter("output.txt");
 			BufferedWriter bufferedWriter = new BufferedWriter(fw);
 			String s = "";
 			bufferedWriter.append(s);
 			bufferedWriter.close();
-
 
 			/*
 			À FAIRE: 
@@ -36,20 +35,15 @@ public class LeServeur {
 			try {
 				while (true) {
 					try {
-						/*
-						À FAIRE:
-						Deserialiser un objet uneListe du type IListeDoublementChainee en appellant
-							objectReader.readObject()
-						*/
-
+						String info = (String) objectReader.readObject();
 						ListeDoublementChainee ldc = (ListeDoublementChainee) objectReader.readObject();
 
-						faireDesChoses(ldc);
+						faireDesChoses(ldc, info);
 
-					} catch (ClassNotFoundException e) {
-						System.err.println("L'objet lu n'etait pas une instance de la classe attendue.");
+						} catch (ClassNotFoundException e) {
+							System.err.println("L'objet lu n'etait pas une instance de la classe attendue.");
+						}
 					}
-				}
 			} catch (EOFException eof) {
 				/*
 				Rien à faire ici. Le EOFException signifie juste que l' objectReader
@@ -67,11 +61,10 @@ public class LeServeur {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	//À FAIRE: adaptez la signature selon votre implementation du IListeDoublementChainee
-	private static void faireDesChoses(IListeDoublementChainee d) {
+	private static void faireDesChoses(IListeDoublementChainee d, String info) {
     /*
     À FAIRE:
     (Devoir 2) exporter la liste de l'avant vers l'arrière et inversement
@@ -80,14 +73,13 @@ public class LeServeur {
 		try{
 		PrintStream out = new PrintStream(new FileOutputStream("output.txt",true),true);
 		System.setOut(out);
-//		System.out.println("*******arriveSurServeur*****************");
+		System.out.print(info);
 		d.imprimerListeDuDebut();
 		d.imprimerListeDeLaFin();
 		System.out.println("----------");
-//		System.out.println("-------quitteServeur------------");
-		out.close();}
+		out.close();
 
-		catch(FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -103,8 +95,5 @@ public class LeServeur {
 //			e.printStackTrace();
 //		}
 
-
-
 	}
-
 }
