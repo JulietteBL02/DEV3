@@ -126,39 +126,31 @@ public class ListeDoublementChainee implements IListeDoublementChainee, Serializ
     public void imprimerListeDuDebut() {
 
         Noeud tempo = tete;
-//        System.out.print("\nNoeuds du debut vers la fin: ");
-        String res = "";
+        System.out.print("Noeuds du debut vers la fin: ");
         while ( tempo != null){
             if (tempo.getSuivant()== null){
-//                System.out.print(tempo.item.getValeur());
-                res += tempo.item.getValeur();
+                System.out.print(tempo.item.getValeur());
             }
             else {
-//                System.out.print(tempo.item.getValeur() + "->");
-                res += tempo.item.getValeur() + "->";
+                System.out.print(tempo.item.getValeur() + "->");
             }
             tempo = tempo.getSuivant();
         }
-        System.out.println("Noeuds du debut vers la fin: " + res);
     }
 
     @Override
     public void imprimerListeDeLaFin() {
 
         Noeud tempo = queue;
-//        System.out.print("\nNoeuds de la fin vers le debut: ");
-        String res = "";
+        System.out.print("\nNoeuds de la fin vers le debut: ");
         while ( tempo != null) {
             if (tempo.getPrecedent()== null){
-//                System.out.print(tempo.item.getValeur());
-                res += tempo.item.getValeur();
+                System.out.print(tempo.item.getValeur());
             }
             else {
-//                System.out.print(tempo.item.getValeur() + "->");
-                res += tempo.item.getValeur() + "->";
+                System.out.print(tempo.item.getValeur() + "->");
             }
             tempo = tempo.getPrecedent();
         }
-        System.out.println("Noeuds de la fin vers le debut: " + res);
     }
 }

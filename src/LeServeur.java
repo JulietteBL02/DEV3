@@ -1,8 +1,18 @@
+// ============================================================================
+// AUTEURS              :   Juliette Beaulieu-Lépine, Loïc Gobet
+// DATE DE CREATION     :   29 mars 2021
+// DESCRIPTION          :   Serveur qui lit un socket pour prendre
+// 							les listes sérialisées, les traite et
+// 							les exporte dans un fichier output.txt
+// NOTES                :
+// ============================================================================
+// Dernière mise à jour :   1 avril 2021
+//
+//=============================================================================
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class LeServeur {
 
@@ -17,20 +27,20 @@ public class LeServeur {
 							" a connecté sur port " + client.getLocalPort()
 			);
 
+			/*
+			À FAIRE:
+			Créer un objet ObjectInputStream objectReader à partir du clientStream
+			*/
+
 			InputStream clientStream = client.getInputStream();
 			ObjectInputStream objectReader = new ObjectInputStream(clientStream);
 
-			// Initialise le fichier output vide s'il est déjà créé
+			// Réinitialise le fichier output vide s'il est déjà créé
 			FileWriter fw = new FileWriter("output.txt");
 			BufferedWriter bufferedWriter = new BufferedWriter(fw);
 			String s = "";
 			bufferedWriter.append(s);
 			bufferedWriter.close();
-
-			/*
-			À FAIRE: 
-			Créer un objet ObjectInputStream objectReader à partir du clientStream
-			*/
 
 			try {
 				while (true) {
@@ -64,7 +74,7 @@ public class LeServeur {
 	}
 
 	//À FAIRE: adaptez la signature selon votre implementation du IListeDoublementChainee
-	private static void faireDesChoses(IListeDoublementChainee d, String info) {
+	private static void faireDesChoses(ListeDoublementChainee d, String info) {
     /*
     À FAIRE:
     (Devoir 2) exporter la liste de l'avant vers l'arrière et inversement
@@ -76,24 +86,11 @@ public class LeServeur {
 		System.out.print(info);
 		d.imprimerListeDuDebut();
 		d.imprimerListeDeLaFin();
-		System.out.println("----------");
+		System.out.println("\n----------");
 		out.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-//		try {
-//			FileWriter fw = new FileWriter("lettres.txt", true);
-//			BufferedWriter bufferedWriter = new BufferedWriter(fw);
-//			String s = "DEF\n";
-//			bufferedWriter.append(s);
-//			bufferedWriter.close();
-////		System.out.println("\n----------");
-//		}
-//		catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
 	}
 }

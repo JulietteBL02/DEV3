@@ -1,9 +1,19 @@
+// ============================================================================
+// AUTEURS              :   Juliette Beaulieu-Lépine, Loïc Gobet
+// DATE DE CREATION     :   29 mars 2021
+// DESCRIPTION          :   Client qui lit un fichier input.txt,
+// 							crée les objets représentants les listes,
+// 							les sérialise et les envoie via un socket
+// 							au serveur
+// NOTES                :
+// ============================================================================
+// Dernière mise à jour :   1 avril 2021
+//
+//=============================================================================
+
 import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
-
-// Si necessaire:
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LeClient {
@@ -30,39 +40,25 @@ public class LeClient {
 				writer.(...)
 			*/
 
-
 			try {
 				File myObj = new File("./assets/input.txt");
 				Scanner myReader = new Scanner(myObj);
 				while (myReader.hasNextLine()) {
 					String line = myReader.nextLine();
 					if (!line.isEmpty()) {
-						System.out.println("----------");
 						String[] colonne = line.split(" ");
 						String sens = colonne[0];
 						String listeEnString = colonne[1];
-						System.out.println("Sens du tri: " + sens);
-						System.out.println("Liste originale: " + listeEnString);
 
 						ListeDoublementChainee ldc = new ListeDoublementChainee(sens);
 
 						ldc.ajouterListe(listeEnString);
-//
-//						FileWriter fw = new FileWriter("output.txt",true);
-//						BufferedWriter bufferedWriter = new BufferedWriter(fw);
-						String s = "----------" + "\nSens du tri: " + sens + "\n" + "Liste originale: " + listeEnString + "\n" ;
-//						bufferedWriter.append(s);
-//						try{
-////							hyper broche à foin mais .... si je fais pas ça le client va plus vite que le serveur pour imprimer
-////									et il imprime la prochaine liste à trier avant que le serveur l'ait triée et imprimée'
-//						Thread.sleep(100);}
-//						catch (InterruptedException e){
-//							e.printStackTrace();
-//						}
-//						bufferedWriter.close();
-//						fw.close();
 
-						writer.writeObject(s);
+						// Pour conserver les informations fournies par le input
+						// (sens et liste originale) et les envoyer au serveur
+						String info = "----------" + "\nSens du tri: " + sens + "\n" + "Liste originale: " + listeEnString + "\n" ;
+
+						writer.writeObject(info);
 						writer.writeObject(ldc);
 					}
 				}
